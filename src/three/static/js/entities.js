@@ -3,12 +3,12 @@ window.Entities = {
         var self = this;
         this.position = THREE.Vector3(0,0,0);
         this.velocity = 0.0;
-        this.direction = Math.PI;
+        this.direction = 0;
         this.kartScene = kartScene;
 
         this.update = function(dt) {
             kartScene.position = this.position;
-            kartScene.rotation = this.direction;
+            kartScene.rotation.z = this.direction;
         }
     }
 }
