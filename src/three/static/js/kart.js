@@ -1,3 +1,6 @@
+// entities.js
+window.SCENES = {
+};
 
 (function() {
     var scene = new THREE.Scene();
@@ -64,13 +67,11 @@
 
     function loadKart() {
         loader.load("static/models/kart.dae", function(collada) {
-            console.log("Loaded", collada);
             var package = collada.scene;
             collada.scene.scale.set(0.1, 0.1, 0.1);
             collada.scene.rotation.z = -Math.PI/4;
             scene.add(collada.scene);
-
-            //scene.add(collada.scene.children);
+            Instances.player = new Entities.Player(collada.scene);
         });
     }
 
