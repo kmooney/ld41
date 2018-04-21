@@ -5,7 +5,7 @@ window.Entities = {
         this.position = new THREE.Vector3(0,0,0);
         this.axisAngle = new THREE.Vector3(0,0,1);
         this.direction = -Math.PI / 2 ;
-        this.velocity = 0.05;
+        this.velocity = 0.01;
         this.kart = kartScene;
 
         this.update = function(dt) {

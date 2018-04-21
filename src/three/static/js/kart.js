@@ -123,7 +123,7 @@ window.SCENES = {
 
     function instancePlayer(){
         Instances.player = new Entities.Player(objectLibrary.Player); 
-        scene.add(Instances.player.kartScene);
+        scene.add(Instances.player.kart);
     }
 
     function instanceDungeon(){
