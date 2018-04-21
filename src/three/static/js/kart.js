@@ -1,5 +1,5 @@
 
-function() {
+(function() {
     var scene = new THREE.Scene();
     var loader = new THREE.ColladaLoader();
     var cameraTarget = new THREE.Vector3( 0, 0, 0 );
