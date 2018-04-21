@@ -67,9 +67,8 @@
             var package = collada.scene;
             collada.scene.scale.set(0.1, 0.1, 0.1);
             collada.scene.rotation.z = -Math.PI/4;
-            
             scene.add(collada.scene);
-            
+
             //scene.add(collada.scene.children);
         });
     }
