@@ -1,21 +1,21 @@
 var UP = new THREE.Vector3(0,1,0);
 window.Entities = {
     Player: function(kart) {
-        var self = this;
-        var highlight = new THREE.MeshBasicMaterial({color: "#f0f000"})
-        var friction = new THREE.Vector3(0,0,1);
-        var turnAngle = 0.07;
-
-        var velocity = new THREE.Vector3(0,0,0);
-        self.velocity = velocity;
-        var direction = 0;
+        var self = this,
+            highlight = new THREE.MeshBasicMaterial({color: "#f0f000"}),
+            friction = new THREE.Vector3(0,0,1),
+            turnAngle = 0.07,
+            velocity = new THREE.Vector3(0,0,0),
+            direction = 0,
+            gas = false, brake = false,
+            left = false, right = false;
         
-        
+        this.velocity = velocity;
         this.kart = kart;
         this.obj3D = new THREE.Object3D();
         this.obj3D.add(this.kart);
         
-        var gas = false, brake = false, left = false, right = false;
+        
 
         this.update = function(dt, dungeon) {            
             if(left && velocity.length() > 0.01){
