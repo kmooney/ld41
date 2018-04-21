@@ -1,7 +1,7 @@
 var DUNGEON_MAP = [
     {
         x: 0, y: 0, 
-        type: "AllWayBase",
+        walls: "ltb", // lrtb if that side has an wall  
         objects: [
             {
                 type: "Crate",
@@ -12,7 +12,7 @@ var DUNGEON_MAP = [
     },
     {
         x: 1, y: 0, 
-        type: "AllWayBase",
+        walls: "rt",
         objects: [
             {
                 type: "Crate",
@@ -20,5 +20,50 @@ var DUNGEON_MAP = [
                 z:1
             }
         ]
-    }
+    },
+    {
+        x: 1, y: -1, 
+        walls: "lr", // lrtb if that side has an wall  
+        objects: [
+            {
+                type: "Crate",
+                x:2,
+                z:1
+            }
+        ]
+    },
+    {
+        x: 1, y: -2, 
+        walls: "b", // lrtb if that side has an wall  
+        objects: [
+            {
+                type: "Crate",
+                x:2,
+                z:1
+            }
+        ]
+    },
+    {
+        x: 0, y: -2, 
+        walls: "ltb", // lrtb if that side has an wall  
+        objects: [
+            {
+                type: "Crate",
+                x:2,
+                z:1
+            }
+        ]
+    },
+    {
+        x: 2, y: -2, 
+        walls: "trb", // lrtb if that side has an wall  
+        objects: [
+            {
+                type: "Crate",
+                x:2,
+                z:1
+            }
+        ]
+    },
+
 ];

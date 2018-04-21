@@ -1,10 +1,10 @@
-
+BOUNDS = {left:-4,right:4,top:-2,bottom:2};
 
 var Dungeon = function(){
     this.rooms = {}; 
     this.current = {x:0,y:0}; 
     this.currentRoom = null;
-    this.bounds = {left:-4,right:4,top:-2,bottom:2};
+    this.bounds = BOUNDS;
 }
 
 Dungeon.prototype.update = function(dt){
@@ -13,25 +13,25 @@ Dungeon.prototype.update = function(dt){
     }  
 }
 
-Dungeon.prototype.applyBounds = function(player){
+Dungeon.prototype.applyBounds = function(player,radius){
     var obj = player.obj3D;
-    if(obj.position.x < this.bounds.left){
+    if(obj.position.x - radius < this.bounds.left){
         var r = this.left();
-        if(r!=null){ obj.position.x = this.bounds.right;
-        }else{ obj.position.x = this.bounds.left; player.velocity.x = 0; } 
-    }else if(obj.position.x > this.bounds.right){
+        if(r!=null){ obj.position.x = this.bounds.right - radius;
+        }else{ obj.position.x = this.bounds.left + radius; player.velocity.x = 0; } 
+    }else if(obj.position.x + radius > this.bounds.right){
         var r = this.right();
-        if(r!=null){ obj.position.x = this.bounds.left; 
-        }else{ obj.position.x = this.bounds.right; player.velocity.x = 0; }                
+        if(r!=null){ obj.position.x = this.bounds.left + radius; 
+        }else{ obj.position.x = this.bounds.right - radius; player.velocity.x = 0; }                
     }
-    if(obj.position.z < this.bounds.top){
+    if(obj.position.z - radius < this.bounds.top){
         var r = this.up();
-        if(r!=null){ obj.position.z = this.bounds.bottom; 
-        }else{ obj.position.z = this.bounds.top; player.velocity.z = 0; }                
-    }else if(obj.position.z > this.bounds.bottom){
+        if(r!=null){ obj.position.z = this.bounds.bottom - radius; 
+        }else{ obj.position.z = this.bounds.top + radius; player.velocity.z = 0; }                
+    }else if(obj.position.z + radius > this.bounds.bottom){
         var r = this.down();
-        if(r!=null){ obj.position.z = this.bounds.top; 
-        }else{ obj.position.z = this.bounds.bottom; player.velocity.z = 0; }                
+        if(r!=null){ obj.position.z = this.bounds.top + radius; 
+        }else{ obj.position.z = this.bounds.bottom - radius; player.velocity.z = 0; }                
     }
 }
 
@@ -68,7 +68,7 @@ Dungeon.prototype.down = function(){
 Dungeon.prototype.loadRooms = function(roomList,objectLibrary,scene){
     for(var i=0; i<roomList.length;i++){
         var r = roomList[i];
-        var room = new Room(r.x,r.y);
+        var room = new Room(r.walls,r.x,r.y);
         room.loadObjects(r.objects,objectLibrary);
         this.rooms[""+r.x+","+r.y] = room;
         if(this.currentRoom == null){
@@ -80,10 +80,40 @@ Dungeon.prototype.loadRooms = function(roomList,objectLibrary,scene){
 }
 
 
-var Room = function(type){
-    this.type = type; 
+var Room = function(walls,x,y){
+    this.x = x;
+    this.y = y;
+    this.walls = walls; 
     this.obj3d = new THREE.Object3D();
     this.obj3d.visible = false; 
+    this.obj3d.name = "Room-"+x+","+y;
+}
+
+Room.prototype.addWalls = function(objectLibrary){
+    if(this.walls.indexOf("l") >= 0){
+        var w = objectLibrary.Wall.clone();
+        w.position.x = BOUNDS.left-0.5;
+        w.scale.z = BOUNDS.bottom - BOUNDS.top + 2;
+        this.obj3d.add(w);
+    }
+    if(this.walls.indexOf("r") >= 0){
+        var w = objectLibrary.Wall.clone();
+        w.position.x = BOUNDS.right+0.5;
+        w.scale.z = BOUNDS.bottom - BOUNDS.top + 2;
+        this.obj3d.add(w);
+    }
+    if(this.walls.indexOf("t") >= 0){
+        var w = objectLibrary.Wall.clone();
+        w.position.z = BOUNDS.top-0.5;
+        w.scale.x = BOUNDS.right - BOUNDS.left + 2;
+        this.obj3d.add(w);
+    }
+    if(this.walls.indexOf("b") >= 0){
+        var w = objectLibrary.Wall.clone();
+        w.position.z = BOUNDS.bottom+0.5;
+        w.scale.x = BOUNDS.right - BOUNDS.left + 2;
+        this.obj3d.add(w);
+    }
 }
 
 Room.prototype.addToScene = function(scene){
@@ -100,6 +130,7 @@ Room.prototype.update = function(dt){
 }
 
 Room.prototype.loadObjects = function(obj_list,objectLibrary){
+    this.addWalls(objectLibrary);
     for(var i=0; i<obj_list.length; i++){
         console.log("would load a "+obj_list[i].type+" to "+obj_list[i].pos);
         var o = obj_list[i];

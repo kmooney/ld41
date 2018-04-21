@@ -6,14 +6,13 @@ window.SCENES = {
     var scene = new THREE.Scene();
     var loader = new THREE.ColladaLoader();
     var cameraTarget = new THREE.Vector3( 0, 0, 0 );
-    var textures = {loaded:0,COUNT:1};
+    var textures = {loaded:0,COUNT:2};
     var objectLibrary = {};
     var renderer;
     var dungeon;
 
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
-        camera.position.z = 15;
         camera.position.set( 0, 10, 0 );
         return camera;
     }
@@ -34,11 +33,20 @@ window.SCENES = {
         var groundTexture = loader.load( 'static/textures/cave_1.png', function ( texture ) {
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
             texture.offset.set( 0, 0 );
-            texture.repeat.set( 64, 64 );
+            texture.repeat.set( 18, 12 );
             textures.ground = texture;  
             textures.loaded += 1;
             checkFinishedLoadingTextures();
         });
+        var wallTexture = loader.load( 'static/textures/cave_1.png', function ( texture ) {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.offset.set( 0, 0 );
+            texture.repeat.set( 2, 2 );
+            textures.walls = texture;  
+            textures.loaded += 1;
+            checkFinishedLoadingTextures();
+        });
+
     }
 
     function checkFinishedLoadingTextures(){
@@ -55,7 +63,7 @@ window.SCENES = {
         });
 
         var plane = new THREE.Mesh(
-            new THREE.PlaneBufferGeometry( 40, 40 ),
+            new THREE.PlaneBufferGeometry( BOUNDS.right-BOUNDS.left, BOUNDS.bottom-BOUNDS.top ),
             groundMaterial 
         );
 
@@ -65,6 +73,17 @@ window.SCENES = {
         scene.add( plane );
 
         plane.receiveShadow = true;
+
+        var wallMaterial = new THREE.MeshPhongMaterial( {
+            color: 0x333333,
+            map: textures.walls,  
+        });
+
+        var wall = new THREE.Mesh(
+            new THREE.CubeGeometry( 1, 1, 1),
+            wallMaterial
+        );
+        objectLibrary.Wall = wall;
     }
 
     function loadObjectLibrary() {
@@ -124,6 +143,7 @@ window.SCENES = {
     function instancePlayer(){
         Instances.player = new Entities.Player(objectLibrary.Player); 
         Instances.player.addToScene(scene);
+
     }
 
     function instanceDungeon(){

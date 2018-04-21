@@ -7,15 +7,15 @@ window.Entities = {
             turnAngle = 0.07,
             velocity = new THREE.Vector3(0,0,0),
             direction = 0,
+            collideRadius = 0.25;
             gas = false, brake = false,
             left = false, right = false;
         
         this.velocity = velocity;
         this.kart = kart;
         this.obj3D = new THREE.Object3D();
+        this.kart.position.z = 0;
         this.obj3D.add(this.kart);
-        
-        
 
         this.update = function(dt, dungeon) {            
             if(left && velocity.length() > 0.01){
@@ -31,15 +31,25 @@ window.Entities = {
                 t.applyAxisAngle(UP, direction);   
                 velocity.add(t);
             }
+
+    
+            var fwd_velocity = velocity.clone().applyAxisAngle(UP,direction).z; 
+            // not working..
             if(brake) {
-                velocity.multiplyScalar(0.1);
+                if( fwd_velocity > 0){
+                    velocity.multiplyScalar(0.1);
+                }else{
+                    var b = new THREE.Vector3(0,0,-0.01);   
+                    b.applyAxisAngle(UP, direction);
+                    velocity.add(b); 
+                }
             }
 
             velocity.multiplyScalar(0.95);
 
             velocity.clampLength(0,0.1);
             
-            dungeon.applyBounds(self);
+            dungeon.applyBounds(self,collideRadius);
 
             this.obj3D.position.add(velocity);
             kart.rotation.z = direction;
@@ -80,6 +90,23 @@ window.Entities = {
                 right = false;
             }
         });
+
+        // DEBUG COLLIDE
+        this.add_debug_ring = function(){ 
+            var radius   = collideRadius,
+                segments = 32,
+                material = new THREE.LineBasicMaterial( { color: 0xff00ff } ),
+                geometry = new THREE.CircleGeometry( radius, segments );
+
+                // Remove center vertex
+                geometry.vertices.shift();
+            var ring = new THREE.Line( geometry, material ) 
+            ring.rotation.x = Math.PI/2;
+            this.obj3D.add( ring ); 
+        }
+        this.add_debug_ring();
+
+
     }
 }
 
