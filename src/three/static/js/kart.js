@@ -1,3 +1,4 @@
+
 (function() {
     var scene = new THREE.Scene();
     var loader = new THREE.ColladaLoader();
@@ -38,6 +39,7 @@
             console.log("Loaded", collada);
             var package = collada.scene;
             collada.scene.scale.set(0.2, 0.2, 0.2);
+            collada.scene.position.y = -0.1;
             
             scene.add(collada.scene);
             
@@ -70,7 +72,7 @@
         addShadowedLight( 0.5, 1, -1, 0xffaa00, 1 );
     }
 
-    var camera = setupCamera();
+    window.camera = setupCamera();
     setupGround();
     addLight();
     loadKart();
@@ -78,8 +80,8 @@
 
     function animate() {
         requestAnimationFrame(animate);
-        camera.position.z = 0.01;
-        camera.position.y = 0.01;
+        camera.position.z = 5;
+        camera.position.y = 2;
 
         camera.lookAt(cameraTarget);
         renderer.render(scene, camera);
