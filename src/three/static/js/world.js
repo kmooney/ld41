@@ -3,5 +3,8 @@ window.WORLD = {
         if (Instances.player) {
             Instances.player.update(dt);
         }
+        if (Instances.dungeon) {
+            Instances.dungeon.update(dt);
+        }
     }
 }

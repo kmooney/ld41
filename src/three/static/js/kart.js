@@ -7,7 +7,9 @@ window.SCENES = {
     var loader = new THREE.ColladaLoader();
     var cameraTarget = new THREE.Vector3( 0, 0, 0 );
     var textures = {loaded:0,COUNT:1};
+    var objectLibrary = {};
     var renderer;
+    var dungeon;
 
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
@@ -65,17 +67,20 @@ window.SCENES = {
         plane.receiveShadow = true;
     }
 
-    function loadKart() {
+    function loadObjectLibrary() {
         loader.load("static/models/kart.dae", function(collada) {
             var package = collada.scene;
             collada.scene.scale.set(0.1, 0.1, 0.1);
             collada.scene.rotation.z = -Math.PI/4;
-            var chassis = collada.scene.children[0];
-            chassis.rotation.x = -Math.PI/2;   
-            chassis.scale = chassis.scale.multiplyScalar(0.1);
-            scene.add(chassis);
-
-            Instances.player = new Entities.Player(chassis);
+            console.log(collada);
+            for(var i=0;i<collada.scene.children.length; i++){
+                var obj = collada.scene.children[i];
+                obj.rotation.x = -Math.PI/2;   
+                obj.scale = obj.scale.multiplyScalar(0.1);
+                objectLibrary[obj.name] = obj; 
+            }
+            console.log(objectLibrary);
+            objectsLoaded();
         });
     }
 
@@ -109,11 +114,33 @@ window.SCENES = {
     } 
 
     function texturesLoaded(){
+        loadObjectLibrary();
+    }
+
+    function objectsLoaded(){
+        initWorld();
+    }
+
+    function instancePlayer(){
+        Instances.player = new Entities.Player(objectLibrary.Player); 
+        scene.add(Instances.player.kartScene);
+    }
+
+    function instanceDungeon(){
+        dungeon = new Dungeon();
+        dungeon.loadRooms(DUNGEON_MAP,objectLibrary,scene);
+        Instances.dungeon = dungeon;        
+        window.dungeon = dungeon; // for manual debug
+    }
+
+    function initWorld(){
         window.camera = setupCamera();
         setupGround();
         addLight();
-        loadKart();
+        instancePlayer();
+        instanceDungeon();
         renderer = setupRenderer();
+        window.SCENES.game = scene;
         animate();
     }
     var startMS, endMS = 0;
