@@ -26,10 +26,10 @@
 
     function loadTextures() {
         var loader = new THREE.TextureLoader();
-        var groundTexture = loader.load( 'static/textures/cave.png', function ( texture ) {
+        var groundTexture = loader.load( 'static/textures/cave_1.png', function ( texture ) {
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
             texture.offset.set( 0, 0 );
-            texture.repeat.set( 2, 2 );
+            texture.repeat.set( 64, 64 );
             textures.ground = texture;  
             textures.loaded += 1;
             checkFinishedLoadingTextures();
