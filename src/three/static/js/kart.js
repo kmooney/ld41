@@ -1,5 +1,5 @@
 
-(function() {
+function() {
     var scene = new THREE.Scene();
     var loader = new THREE.ColladaLoader();
     var cameraTarget = new THREE.Vector3( 0, 0, 0 );
@@ -40,9 +40,8 @@
             var package = collada.scene;
             collada.scene.scale.set(0.1, 0.1, 0.1);
             collada.scene.rotation.z = -Math.PI/4;
-            
             scene.add(collada.scene);
-            
+
             //scene.add(collada.scene.children);
         });
     }
