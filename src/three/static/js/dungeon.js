@@ -18,7 +18,7 @@ Dungeon.prototype.applyBounds = function(player){
     if(obj.position.x < this.bounds.left){
         var r = this.left();
         if(r!=null){ obj.position.x = this.bounds.right;
-        }else{ obj.position.x = this.bound.left; player.velocity.x = 0; } 
+        }else{ obj.position.x = this.bounds.left; player.velocity.x = 0; } 
     }else if(obj.position.x > this.bounds.right){
         var r = this.right();
         if(r!=null){ obj.position.x = this.bounds.left; 

@@ -1,4 +1,5 @@
 var UP = new THREE.Vector3(0,1,0);
+    
 
 window.Entities = {
     Player: function(kartScene) {
@@ -15,8 +16,44 @@ window.Entities = {
         this.obj3D.add(this.kart);
         this.gas = false;
 
+        window.addEventListener('keydown', function(e) {
+        
+            if (e.keyCode == 38) {
+                self.gas = true;
+            }
+            if (e.keyCode == 40) {
+                self.brake = true;
+            }
+            if (e.keyCode == 37) {
+                self.left = true;
+            }
+            if (e.keyCode == 39) {
+                self.right = true;
+            }
+        });
+    
+        window.addEventListener('keyup', function(e) {
+             if (e.keyCode == 38) {
+                self.gas = false;
+            }
+            if (e.keyCode == 40) {
+                self.brake = false;
+            }
+            if (e.keyCode == 37) {
+                self.left = false;
+            }
+            if (e.keyCode == 39) {
+                self.right = false;
+            }
+        });
+
         this.update = function(dt,dungeon) {
-            self.direction += 0.01;
+            if(self.left){
+                self.direction += 0.1;
+            }
+            if(self.right){
+                self.direction -= 0.1;
+            }   
             var v = new THREE.Vector3(0,0,0);
             // add current velocity
             v.add(this.velocity);
