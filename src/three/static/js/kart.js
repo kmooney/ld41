@@ -3,6 +3,8 @@ function() {
     var scene = new THREE.Scene();
     var loader = new THREE.ColladaLoader();
     var cameraTarget = new THREE.Vector3( 0, 0, 0 );
+    var textures = {loaded:0,COUNT:1};
+    var renderer;
 
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
@@ -22,11 +24,36 @@ function() {
         return renderer;
     }
 
+    function loadTextures() {
+        var loader = new THREE.TextureLoader();
+        var groundTexture = loader.load( 'static/textures/cave.png', function ( texture ) {
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+            texture.offset.set( 0, 0 );
+            texture.repeat.set( 2, 2 );
+            textures.ground = texture;  
+            textures.loaded += 1;
+            checkFinishedLoadingTextures();
+        });
+    }
+
+    function checkFinishedLoadingTextures(){
+        if(textures.loaded == textures.COUNT){
+            texturesLoaded(); 
+        }
+    }
     function setupGround() {
+
+        var groundMaterial = new THREE.MeshPhongMaterial( {
+            color: 0xffffff,
+            map: textures.ground,  
+        });
+
         var plane = new THREE.Mesh(
             new THREE.PlaneBufferGeometry( 40, 40 ),
-            new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
+            groundMaterial 
         );
+
+
         plane.rotation.x = -Math.PI/2;
         plane.position.y = -0.5;
         scene.add( plane );
@@ -71,11 +98,18 @@ function() {
         addShadowedLight( 0.5, 1, -1, 0xffaa00, 1 );
     }
 
-    window.camera = setupCamera();
-    setupGround();
-    addLight();
-    loadKart();
-    var renderer = setupRenderer();
+    function init(){
+        loadTextures();
+    } 
+
+    function texturesLoaded(){
+        window.camera = setupCamera();
+        setupGround();
+        addLight();
+        loadKart();
+        renderer = setupRenderer();
+        animate();
+    }
 
     function animate() {
         requestAnimationFrame(animate);
@@ -87,5 +121,6 @@ function() {
         camera.lookAt(cameraTarget);
         renderer.render(scene, camera);
     }
-    animate();
+
+    init();
 })()
