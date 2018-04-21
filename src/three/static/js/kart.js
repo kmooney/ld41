@@ -70,6 +70,7 @@ window.SCENES = {
             var package = collada.scene;
             collada.scene.scale.set(0.1, 0.1, 0.1);
             collada.scene.rotation.z = -Math.PI/4;
+            console.log(collada.scene);
             scene.add(collada.scene);
             Instances.player = new Entities.Player(collada.scene);
         });
