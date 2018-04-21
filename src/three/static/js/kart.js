@@ -68,7 +68,10 @@
             var package = collada.scene;
             collada.scene.scale.set(0.1, 0.1, 0.1);
             collada.scene.rotation.z = -Math.PI/4;
-            scene.add(collada.scene);
+            var chassis = collada.scene.children[0];
+            chassis.rotation.x = -Math.PI/2;   
+            chassis.scale = chassis.scale.multiplyScalar(0.1);
+            scene.add(chassis);
 
             //scene.add(collada.scene.children);
         });
