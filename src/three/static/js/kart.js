@@ -65,8 +65,8 @@
         loader.load("static/models/kart.dae", function(collada) {
             console.log("Loaded", collada);
             var package = collada.scene;
-            collada.scene.scale.set(0.2, 0.2, 0.2);
-            collada.scene.position.y = -0.1;
+            collada.scene.scale.set(0.1, 0.1, 0.1);
+            collada.scene.rotation.z = -Math.PI/4;
             
             scene.add(collada.scene);
             
@@ -114,8 +114,10 @@
 
     function animate() {
         requestAnimationFrame(animate);
-        camera.position.z = 5;
-        camera.position.y = 2;
+        camera.position.z = 0;
+        camera.position.x = 0;
+        camera.position.y = 10;
+
 
         camera.lookAt(cameraTarget);
         renderer.render(scene, camera);
