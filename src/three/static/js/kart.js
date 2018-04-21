@@ -9,7 +9,7 @@
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
         camera.position.z = 15;
-        camera.position.set( 3, 0.15, 3 );
+        camera.position.set( 0, 10, 0 );
         return camera;
     }
 
@@ -41,6 +41,7 @@
             texturesLoaded(); 
         }
     }
+
     function setupGround() {
 
         var groundMaterial = new THREE.MeshPhongMaterial( {
@@ -110,16 +111,15 @@
         renderer = setupRenderer();
         animate();
     }
+    var startMS, endMS = 0;
 
     function animate() {
-        requestAnimationFrame(animate);
-        camera.position.z = 0;
-        camera.position.x = 0;
-        camera.position.y = 10;
-
-
+        startMS = new Date().getMilliseconds();
+        requestAnimationFrame(animate);    
         camera.lookAt(cameraTarget);
+        WORLD.update(endMS == 0 ? 0 : endMS - startMS);
         renderer.render(scene, camera);
+        endMS = new Date().getMilliseconds();
     }
 
     init();
