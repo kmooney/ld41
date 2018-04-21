@@ -4,7 +4,7 @@ var Dungeon = function(){
     this.rooms = {}; 
     this.current = {x:0,y:0}; 
     this.currentRoom = null;
-    this.bounds = {left:-5,right:5,top:-3,bottom:3};
+    this.bounds = {left:-4,right:4,top:-2,bottom:2};
 }
 
 Dungeon.prototype.update = function(dt){
@@ -14,24 +14,24 @@ Dungeon.prototype.update = function(dt){
 }
 
 Dungeon.prototype.applyBounds = function(player){
-    var kart = player.kart;
-    if(kart.position.x < this.bounds.left){
+    var obj = player.obj3D;
+    if(obj.position.x < this.bounds.left){
         var r = this.left();
-        if(r!=null){ kart.position.x = this.bounds.right;
-        }else{ player.velocity.x = 0; }                
-    }else if(kart.position.x > this.bounds.right){
+        if(r!=null){ obj.position.x = this.bounds.right;
+        }else{ obj.position.x = this.bound.left; player.velocity.x = 0; } 
+    }else if(obj.position.x > this.bounds.right){
         var r = this.right();
-        if(r!=null){ kart.position.x = this.bounds.left; 
-        }else{ player.velocity.x = 0; }                
+        if(r!=null){ obj.position.x = this.bounds.left; 
+        }else{ obj.position.x = this.bounds.right; player.velocity.x = 0; }                
     }
-    if(kart.position.z < this.bounds.top){
+    if(obj.position.z < this.bounds.top){
         var r = this.up();
-        if(r!=null){ kart.position.z = this.bounds.bottom; 
-        }else{ player.velocity.z = 0; }                
-    }else if(kart.position.z > this.bounds.bottom){
+        if(r!=null){ obj.position.z = this.bounds.bottom; 
+        }else{ obj.position.z = this.bounds.top; player.velocity.z = 0; }                
+    }else if(obj.position.z > this.bounds.bottom){
         var r = this.down();
-        if(r!=null){ kart.position.z = this.bounds.top; 
-        }else{ player.velocity.z = 0; }                
+        if(r!=null){ obj.position.z = this.bounds.top; 
+        }else{ obj.position.z = this.bounds.bottom; player.velocity.z = 0; }                
     }
 }
 
