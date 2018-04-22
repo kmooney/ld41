@@ -164,7 +164,7 @@ Room.prototype.collide = function(player, r){
         var d = i.position.distanceTo(player.obj3D.position);
         // warning! this will break if the models are not scaled by the same
         // factor for all dimensions.
-        var collided = d < (r + (i.geometry.boundingSphere.radius * i.scale.x));
+        var collided = d < player.collideRadius * 2; // (r + (i.geometry.boundingSphere.radius * i.scale.x));
         if(collided && i.entity != undefined && i.entity.collidePlayer != undefined){
             i.entity.collidePlayer(player);
         } 
