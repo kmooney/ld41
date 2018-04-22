@@ -18,7 +18,18 @@ var DUNGEON_MAP = [
                 type: "Crate",
                 x:-1,
                 z:1
+            },
+            {
+                type: "Mob",
+                x:0,
+                z:1
+            },
+            {
+                type: "Mob",
+                x:1,
+                z:1
             }
+
         ]
     },
     {
@@ -37,10 +48,21 @@ var DUNGEON_MAP = [
         walls: "b", // lrtb if that side has an wall  
         objects: [
             {
-                type: "Crate",
+                type: "GreenKey",
                 x:2,
                 z:1
+            },
+            {
+                type: "Mob",
+                x:0,
+                z:1
+            },
+            {
+                type: "Mob",
+                x:1,
+                z:1
             }
+
         ]
     },
     {
@@ -48,10 +70,31 @@ var DUNGEON_MAP = [
         walls: "ltb", // lrtb if that side has an wall  
         objects: [
             {
-                type: "Crate",
+                type: "Mob",
                 x:2,
                 z:1
+            },
+            {
+                type: "Mob",
+                x:1,
+                z:1
+            },
+            {
+                type: "Mob",
+                x:-1,
+                z:1
+            },
+            {
+                type: "Mob",
+                x:2,
+                z:0
+            },
+            {
+                type: "Mob",
+                x:-1,
+                z:-1
             }
+
         ]
     },
     {
@@ -59,9 +102,34 @@ var DUNGEON_MAP = [
         walls: "trb", // lrtb if that side has an wall  
         objects: [
             {
-                type: "Crate",
+                type: "RedKey",
                 x:2,
                 z:1
+            },
+            {
+                type: "Mob",
+                x:0,
+                z:1
+            },
+            {
+                type: "Mob",
+                x:1,
+                z:1
+            },
+            {
+                type: "Mob",
+                x:-1,
+                z:1
+            },
+            {
+                type: "Mob",
+                x:2,
+                z:0
+            },
+            {
+                type: "Mob",
+                x:-1,
+                z:-1
             }
         ]
     },

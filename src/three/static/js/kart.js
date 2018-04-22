@@ -96,6 +96,7 @@ window.SCENES = {
                 var obj = collada.scene.children[i];
                 obj.rotation.x = -Math.PI/2;   
                 obj.scale = obj.scale.multiplyScalar(0.1);
+                obj.position.y = 0;
                 objectLibrary[obj.name] = obj; 
             }
             console.log(objectLibrary);
@@ -166,12 +167,14 @@ window.SCENES = {
     var startMS, endMS = 0;
 
     function animate() {
-        startMS = new Date().getMilliseconds();
+        startMS = new Date();
+        startMS = startMS.getTime() + startMS.getMilliseconds();
         requestAnimationFrame(animate);    
         camera.lookAt(cameraTarget);
         WORLD.update(endMS == 0 ? 0 : endMS - startMS);
         renderer.render(scene, camera);
-        endMS = new Date().getMilliseconds();
+        endMS = new Date();
+        endMS = endMS.getTime() + endMS.getMilliseconds();
     }
 
     init();

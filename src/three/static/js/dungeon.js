@@ -7,30 +7,30 @@ var Dungeon = function(){
     this.bounds = BOUNDS;
 }
 
-Dungeon.prototype.update = function(dt){
+Dungeon.prototype.update = function(dt,player){
     if(this.currentRoom != null){
-        this.currentRoom.update(dt);
+        this.currentRoom.update(dt,player,this);
     }  
 }
 
-Dungeon.prototype.applyBounds = function(player,radius){
+Dungeon.prototype.applyBounds = function(player,radius,allow_change){
     var obj = player.obj3D;
     if(obj.position.x - radius < this.bounds.left){
         var r = this.left();
-        if(r!=null){ obj.position.x = this.bounds.right - radius;
+        if(r!=null && allow_change){ obj.position.x = this.bounds.right - radius;
         }else{ obj.position.x = this.bounds.left + radius; player.velocity.x = 0; } 
     }else if(obj.position.x + radius > this.bounds.right){
         var r = this.right();
-        if(r!=null){ obj.position.x = this.bounds.left + radius; 
+        if(r!=null && allow_change){ obj.position.x = this.bounds.left + radius; 
         }else{ obj.position.x = this.bounds.right - radius; player.velocity.x = 0; }                
     }
     if(obj.position.z - radius < this.bounds.top){
         var r = this.up();
-        if(r!=null){ obj.position.z = this.bounds.bottom - radius; 
+        if(r!=null && allow_change){ obj.position.z = this.bounds.bottom - radius; 
         }else{ obj.position.z = this.bounds.top + radius; player.velocity.z = 0; }                
     }else if(obj.position.z + radius > this.bounds.bottom){
         var r = this.down();
-        if(r!=null){ obj.position.z = this.bounds.top + radius; 
+        if(r!=null && allow_change){ obj.position.z = this.bounds.top + radius; 
         }else{ obj.position.z = this.bounds.bottom - radius; player.velocity.z = 0; }                
     }
 }
@@ -130,8 +130,13 @@ Room.prototype.setVisible = function(visible){
     this.obj3d.visible = visible;
 }
 
-Room.prototype.update = function(dt){
+Room.prototype.update = function(dt,player,dungeon){
     // TODO tick all objects
+    return _.filter(this.items, function(i) {
+        if(i.entity != undefined && i.entity.update != undefined){
+            i.entity.update(dt,player,dungeon); 
+        } 
+    });
 }
 
 Room.prototype.loadObjects = function(obj_list,objectLibrary){
@@ -143,6 +148,9 @@ Room.prototype.loadObjects = function(obj_list,objectLibrary){
         instance.position.x = o.x;
         instance.position.z = o.z;
         instance.geometry.computeBoundingSphere();
+        if(Entities[obj_list[i].type] != undefined){
+            instance.entity = new Entities[obj_list[i].type](instance,this);
+        }
         this.obj3d.children.push(instance); 
         this.items.push(instance);
     } 
@@ -152,9 +160,14 @@ Room.prototype.loadObjects = function(obj_list,objectLibrary){
 Room.prototype.collide = function(player, r){
     // TODO for every object in room, check if we collide with player
     return _.filter(this.items, function(i) {
+        if(i.visible==false){ return false; }
         var d = i.position.distanceTo(player.obj3D.position);
         // warning! this will break if the models are not scaled by the same
         // factor for all dimensions.
-        return d < (r + (i.geometry.boundingSphere.radius * i.scale.x));
+        var collided = d < (r + (i.geometry.boundingSphere.radius * i.scale.x));
+        if(collided && i.entity != undefined && i.entity.collidePlayer != undefined){
+            i.entity.collidePlayer(player);
+        } 
+        return collided
     });
 }
