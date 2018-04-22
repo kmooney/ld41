@@ -10,7 +10,7 @@
     function showMessages() {
         var v = document.createElement('div');
         v.id="message";
-        v.innerHTML = "Use arrow keys to control Kart.<br>Press any key to race."
+        v.innerHTML = "Use arrow keys to control Kart.<br>Use ‘Space’ to brake.<br>Press any key to race."
         hud.appendChild(v)
     }
 

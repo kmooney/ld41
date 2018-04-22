@@ -11,7 +11,7 @@ window.Entities = {
             health = 100,
             boost = {t:0,amount:1.0}, slide = {t:0, amount:0.0},
             gas = false, brake = false,
-            left = false, right = false;
+            left = false, right = false, reverse = false;
 
         
         this.velocity = velocity;
@@ -34,24 +34,21 @@ window.Entities = {
                 t.applyAxisAngle(UP, direction);   
                 velocity.add(t);
             }
+            if(reverse) {
+                var b = new THREE.Vector3(0,0,-0.005);
+                b.applyAxisAngle(UP, direction);
+                velocity.add(b);
+            }
 
-            var fwd_velocity = velocity.clone().applyAxisAngle(UP,direction).z; 
-            // not working..
             if(brake) {
-                if( fwd_velocity > 0){
-                    velocity.multiplyScalar(0.1);
-                }else{
-                    var b = new THREE.Vector3(0,0,-0.01);   
-                    b.applyAxisAngle(UP, direction);
-                    velocity.add(b); 
-                }
+                velocity.multiplyScalar(0.5);
             }
 
             velocity.multiplyScalar(0.95 + slide.amount);
 
             velocity.clampLength(0,0.1);
    
-            if(boost.t > 0){ 
+            if(boost.t > 0){
                 velocity.multiplyScalar(boost.amount);
             }
             
@@ -93,11 +90,13 @@ window.Entities = {
         }
 
         window.addEventListener('keydown', function(e) {
-        
             if (e.keyCode == 38) {
                 gas = true;
             }
             if (e.keyCode == 40) {
+                reverse = true;
+            }
+            if (e.keyCode == 32) {
                 brake = true;
             }
             if (e.keyCode == 37) {
@@ -113,6 +112,9 @@ window.Entities = {
                 gas = false;
             }
             if (e.keyCode == 40) {
+                reverse = false;
+            }
+            if (e.keyCode == 32) {
                 brake = false;
             }
             if (e.keyCode == 37) {
