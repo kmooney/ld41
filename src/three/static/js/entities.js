@@ -13,7 +13,7 @@ window.Entities = {
             inventory3D = new THREE.Object3D(),
             boost = {t:0,amount:1.0}, slide = {t:0, amount:0.0},
             gas = false, brake = false,
-            left = false, right = false;
+            left = false, right = false, reverse = false;
 
 
         this.collideRadius = collideRadius;        
@@ -23,6 +23,7 @@ window.Entities = {
         this.kart.position.z = 0;
         this.obj3D.add(this.kart);
         inventory3D.position = new THREE.Vector3(2,8,2); 
+        this.health = 100;
 
         this.update = function(dt, dungeon) {    
             if(left && velocity.length() > 0.01){
@@ -38,24 +39,21 @@ window.Entities = {
                 t.applyAxisAngle(UP, direction);   
                 velocity.add(t);
             }
+            if(reverse) {
+                var b = new THREE.Vector3(0,0,-0.005);
+                b.applyAxisAngle(UP, direction);
+                velocity.add(b);
+            }
 
-            var fwd_velocity = velocity.clone().applyAxisAngle(UP,direction).z; 
-            // not working..
             if(brake) {
-                if( fwd_velocity > 0){
-                    velocity.multiplyScalar(0.1);
-                }else{
-                    var b = new THREE.Vector3(0,0,-0.01);   
-                    b.applyAxisAngle(UP, direction);
-                    velocity.add(b); 
-                }
+                velocity.multiplyScalar(0.5);
             }
 
             velocity.multiplyScalar(0.95 + slide.amount);
 
             velocity.clampLength(0,0.1);
    
-            if(boost.t > 0){ 
+            if(boost.t > 0){
                 velocity.multiplyScalar(boost.amount);
             }
             
@@ -74,6 +72,9 @@ window.Entities = {
 
         this.applyDamage = function(amount){
             this.health -= amount;
+            var h = document.getElementById("health");
+            h.style.width = (this.health * 3.4) + "px";
+            console.log("Setting to "+this.health * 3.4+"px");
             if(this.health <= 0){
                 alert("You Died");
                 // TODO reset game?
@@ -103,11 +104,13 @@ window.Entities = {
         }
 
         window.addEventListener('keydown', function(e) {
-        
             if (e.keyCode == 38) {
                 gas = true;
             }
             if (e.keyCode == 40) {
+                reverse = true;
+            }
+            if (e.keyCode == 32) {
                 brake = true;
             }
             if (e.keyCode == 37) {
@@ -123,6 +126,9 @@ window.Entities = {
                 gas = false;
             }
             if (e.keyCode == 40) {
+                reverse = false;
+            }
+            if (e.keyCode == 32) {
                 brake = false;
             }
             if (e.keyCode == 37) {
