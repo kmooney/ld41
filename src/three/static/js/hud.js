@@ -18,15 +18,22 @@
         document.getElementById('message').remove();
     }
 
-    showTitle();
-    showMessages();
-
     var l = function(e) {
         GAME.gameMode();
         hideMessages();
+        showHealth();
         window.removeEventListener('keypress', l);
     }
 
     window.addEventListener('keypress', l);
+
+    showTitle();
+    showMessages();
+
+    function showHealth() {
+        var health = document.createElement('div');
+        health.id = "health";
+        hud.appendChild(health);
+    }
 
 })()

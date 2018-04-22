@@ -19,6 +19,7 @@ window.Entities = {
         this.obj3D = new THREE.Object3D();
         this.kart.position.z = 0;
         this.obj3D.add(this.kart);
+        this.health = 100;
 
         this.update = function(dt, dungeon) {            
             if(left && velocity.length() > 0.01){
@@ -69,6 +70,9 @@ window.Entities = {
 
         this.applyDamage = function(amount){
             this.health -= 10;
+            var h = document.getElementById("health");
+            h.style.width = (this.health * 3.4) + "px";
+            console.log("Setting to "+this.health * 3.4+"px");
             if(this.health <= 0){
                 alert("You Died");
                 // TODO reset game?
