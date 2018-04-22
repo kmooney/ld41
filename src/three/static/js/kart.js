@@ -125,9 +125,9 @@ window.GAME = new function() {
 
         }
 
-        scene.add( new THREE.HemisphereLight( 0x443333, 0x111122 ) );
+        scene.add( new THREE.HemisphereLight( 0xaaaaaa, 0x111122 ) );
         addShadowedLight( 1, 1, 1, 0xffffff, 1.35 );
-        addShadowedLight( 0.5, 1, -1, 0xffaa00, 1 );
+        addShadowedLight( 0.5, 1, -1, 0xeeaaaa, 1 );
     }
 
     function init(){
