@@ -79,6 +79,10 @@ Dungeon.prototype.loadRooms = function(roomList,objectLibrary,scene){
     this.updateCurrentRoom(0,0);
 }
 
+Dungeon.prototype.collide = function(p, r) {
+    return this.currentRoom.collide(p, r);
+}
+
 
 var Room = function(walls,x,y){
     this.x = x;
@@ -87,6 +91,7 @@ var Room = function(walls,x,y){
     this.obj3d = new THREE.Object3D();
     this.obj3d.visible = false; 
     this.obj3d.name = "Room-"+x+","+y;
+    this.items = [];
 }
 
 Room.prototype.addWalls = function(objectLibrary){
@@ -137,11 +142,19 @@ Room.prototype.loadObjects = function(obj_list,objectLibrary){
         var instance = objectLibrary[o.type].clone();
         instance.position.x = o.x;
         instance.position.z = o.z;
+        instance.geometry.computeBoundingSphere();
         this.obj3d.children.push(instance); 
+        this.items.push(instance);
     } 
+    console.log(this.items);
 }
 
-Room.prototype.collide = function(player){
-    // TODO for every object in room, check if we collide with player  
-    return [];
+Room.prototype.collide = function(player, r){
+    // TODO for every object in room, check if we collide with player
+    return _.filter(this.items, function(i) {
+        var d = i.position.distanceTo(player.obj3D.position);
+        // warning! this will break if the models are not scaled by the same
+        // factor for all dimensions.
+        return d < (r + (i.geometry.boundingSphere.radius * i.scale.x));
+    });
 }

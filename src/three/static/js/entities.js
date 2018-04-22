@@ -50,7 +50,7 @@ window.Entities = {
             velocity.clampLength(0,0.1);
             
             dungeon.applyBounds(self,collideRadius);
-
+            collided = dungeon.collide(self, collideRadius);
             this.obj3D.position.add(velocity);
             kart.rotation.z = direction;
             
