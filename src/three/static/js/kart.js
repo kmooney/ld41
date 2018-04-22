@@ -12,6 +12,7 @@ window.GAME = new function() {
     var dungeon;
     var c = 0;
     var audioLoader = new THREE.AudioLoader();
+    var camera2 = null;
 
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
@@ -113,7 +114,6 @@ window.GAME = new function() {
                 obj.position.y = -0.4;
                 objectLibrary[obj.name] = obj; 
             }
-            console.log(objectLibrary);
             objectsLoaded();
         });
     }
@@ -158,7 +158,7 @@ window.GAME = new function() {
     function instancePlayer(){
         Instances.player = new Entities.Player(objectLibrary.Player); 
         Instances.player.addToScene(scene);
-
+        setupCameraTwo();
     }
 
     function instanceDungeon(){
@@ -209,9 +209,29 @@ window.GAME = new function() {
         camera.position.y = 1;
         camera.position.z = 2;
     }
+
+    var setupCameraTwo = function() {
+        camera2 = _.find(Instances.player.obj3D.children[0].children, function(c) { return c.name == "Camera"; });
+        camera2.up = new THREE.Vector3(0,0,1);
+        camera2.lookAt(Instances.player.obj3D);
+        camera2.position.y = 25;
+        camera2.position.z = 8;
+    }
+
+    var switchCameras = function() {
+        var temp = camera;
+        camera = camera2;
+        camera2 = temp;
+    }
     
     this.gameMode = gameMode;
     this.titleMode = titleMode;
+    this.switchCameras = switchCameras;
+    window.addEventListener('keypress', function(e) {
+        if (e.key == 'c') {
+            switchCameras();
+        }
+    });
 
     init();
 };
