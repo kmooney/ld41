@@ -1,0 +1,10 @@
+#hud {
+    position: absolute;
+    padding:10px;
+}
+
+#message {
+    color: #FFDD00;
+    font-size:20pt;
+    
+}
