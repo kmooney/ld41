@@ -1,15 +1,16 @@
 // entities.js
 window.SCENES = {
 };
-
-(function() {
+window.GAME = new function() {
     var scene = new THREE.Scene();
     var loader = new THREE.ColladaLoader();
     var cameraTarget = new THREE.Vector3( 0, 0, 0 );
     var textures = {loaded:0,COUNT:2};
     var objectLibrary = {};
+    var mode = 'title';
     var renderer;
     var dungeon;
+    var c = 0;
 
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
@@ -94,9 +95,9 @@ window.SCENES = {
             console.log(collada);
             for(var i=0;i<collada.scene.children.length; i++){
                 var obj = collada.scene.children[i];
-                obj.rotation.x = -Math.PI/2;   
+                obj.rotation.x = -Math.PI/2;
                 obj.scale = obj.scale.multiplyScalar(0.1);
-                obj.position.y = 0;
+                obj.position.y = -0.4;
                 objectLibrary[obj.name] = obj; 
             }
             console.log(objectLibrary);
@@ -162,20 +163,41 @@ window.SCENES = {
         instanceDungeon();
         renderer = setupRenderer();
         window.SCENES.game = scene;
+        titleMode();
         animate();
     }
     var startMS, endMS = 0;
 
     function animate() {
+        c++;
         startMS = new Date();
         startMS = startMS.getTime() + startMS.getMilliseconds();
         requestAnimationFrame(animate);    
         camera.lookAt(cameraTarget);
+        if (mode == "title") {
+            //camera.position.y += (0.1 * Math.sin(c))
+            camera.position.x += 0.01 * Math.cos(c * 0.01)
+        }
         WORLD.update(endMS == 0 ? 0 : endMS - startMS);
         renderer.render(scene, camera);
         endMS = new Date();
         endMS = endMS.getTime() + endMS.getMilliseconds();
     }
 
+    var gameMode = function() {
+        mode = 'game';
+        camera.position.set( 0, 10, 0 );
+    }
+
+    var titleMode = function() {
+        mode = 'title';
+        camera.position.x = -1.2;
+        camera.position.y = 1;
+        camera.position.z = 2;
+    }
+    
+    this.gameMode = gameMode;
+    this.titleMode = titleMode;
+
     init();
-})()
+};
