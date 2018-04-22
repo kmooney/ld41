@@ -21,6 +21,23 @@ window.Entities = {
         this.obj3D.add(this.kart);
         this.health = 100;
 
+        var headlights = _.filter(
+            this.obj3D.children[0].children,
+            function(i) {
+                return i.name == "Headlight1" || i.name == "Headlight2"
+            }
+        );
+
+        _.forEach(headlights, function(light) {
+            var spot = _.find(light.children, function(c) {
+                return c.name.split("_")[0] == "Spot";
+            });
+            var target = _.find(light.children, function(c) {
+                return c.name.split("_")[0] == "Target";
+            });
+            spot.target = target;
+        })
+
         this.update = function(dt, dungeon) {            
             if(left && velocity.length() > 0.01){
                 direction += turnAngle;
@@ -56,6 +73,14 @@ window.Entities = {
             dungeon.applyBounds(self,collideRadius,true);
             collided = dungeon.collide(self, collideRadius);
             this.obj3D.position.add(velocity);
+            
+            headlights = _.filter(
+                Instances.player.obj3D.children[0].children,
+                function(i) {
+                    return i.name == "Headlight1" || i.name == "Headlight2"
+                }
+            );
+
             kart.rotation.z = direction;
            
             if(boost.t > 0){
