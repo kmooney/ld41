@@ -21,10 +21,12 @@
     showTitle();
     showMessages();
 
-    window.addEventListener('keypress', function(e) {
+    var l = function(e) {
         GAME.gameMode();
         hideMessages();
+        window.removeEventListener('keypress', l);
+    }
 
-    });
+    window.addEventListener('keypress', l);
 
 })()

@@ -11,11 +11,24 @@ window.GAME = new function() {
     var renderer;
     var dungeon;
     var c = 0;
+    var audioLoader = new THREE.AudioLoader();
 
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
         camera.position.set( 0, 10, 0 );
         return camera;
+    }
+
+    function runSongLoop() {
+        var listener = new THREE.AudioListener();
+        camera.add( listener );
+        var sound = new THREE.Audio( listener );
+        audioLoader.load( 'static/audio/loop.mp3', function( buffer ) {
+            sound.setBuffer( buffer );
+            sound.setLoop( true );
+            sound.setVolume( 0.5 );
+            sound.play();
+        });
     }
 
     function setupRenderer() {
@@ -184,6 +197,7 @@ window.GAME = new function() {
 
     var gameMode = function() {
         mode = 'game';
+        runSongLoop();
         camera.position.set( 0, 10, 0 );
     }
 
