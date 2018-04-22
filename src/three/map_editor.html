@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <style>
+
+table td {
+    border: 1px solid #eee;
+    width: 60px;
+    height: 40px;
+}
+.room {
+    background-color: black;
+    position: relative;
+    padding: 0px;
+}
+._object {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+}
+
+._object.Crate {
+    background-color: pink;
+} 
+._object.Mob {
+    background-color: white;
+} 
+._object.RedKey {
+    background-color: red;
+} 
+._object.GreenKey {
+    background-color: green;
+} 
+
+.selected {
+    background-color: blue;    
+}
+._top { border-top: solid 5px brown; }
+._left { border-left: solid 5px brown; }
+._right { border-right: solid 5px brown; }
+._bottom { border-bottom: solid 5px brown; }
+
+        </style>
+    </head>
+<body>
+
+    <div id="map">
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    
+    <script src="static/js/lodash.js"></script>
+    <script src="static/js/dungeon.js"></script>
+    <script src="static/js/dungeon_map.js"></script>
+    <script src="static/js/editor.js"></script>
+</body>
+</html>

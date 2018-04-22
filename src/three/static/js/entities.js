@@ -9,16 +9,20 @@ window.Entities = {
             direction = 0,
             collideRadius = 0.25;
             health = 100,
+            inventory = {},
+            inventory3D = new THREE.Object3D(),
             boost = {t:0,amount:1.0}, slide = {t:0, amount:0.0},
             gas = false, brake = false,
             left = false, right = false, reverse = false;
 
-        
+
+        this.collideRadius = collideRadius;        
         this.velocity = velocity;
         this.kart = kart;
         this.obj3D = new THREE.Object3D();
         this.kart.position.z = 0;
         this.obj3D.add(this.kart);
+        inventory3D.position = new THREE.Vector3(2,8,2); 
         this.health = 100;
 
         var headlights = _.filter(
@@ -38,7 +42,7 @@ window.Entities = {
             spot.target = target;
         })
 
-        this.update = function(dt, dungeon) {            
+        this.update = function(dt, dungeon) {
             if(left && velocity.length() > 0.01){
                 direction += turnAngle;
                 velocity.applyAxisAngle(UP, turnAngle);
@@ -84,17 +88,15 @@ window.Entities = {
             kart.rotation.z = direction;
            
             if(boost.t > 0){
-                console.log("boost active",boost,dt);
                 boost.t += dt;
             }else{ boost.amount = 1.0; } //reset boost
             if(slide.t > 0){
-                console.log("slide active",slide,dt);
                 slide.t += dt;
             }else{ slide.amount = 0.0; } //reset slide
         }
 
         this.applyDamage = function(amount){
-            this.health -= 10;
+            this.health -= amount;
             var h = document.getElementById("health");
             h.style.width = (this.health * 3.4) + "px";
             console.log("Setting to "+this.health * 3.4+"px");
@@ -103,6 +105,13 @@ window.Entities = {
                 // TODO reset game?
             } 
         }        
+
+        this.addToInventory = function(key,entity){
+            inventory[key] = entity.obj3D.clone();
+            // add to HUD  
+            inventory[key].position = new THREE.Vector3(0,0,0);
+            inventory3D.add(inventory[key]);
+        }
 
         this.applyBoost = function(amount,time){
             boost.amount = amount; // e.g. 2 for double speed
@@ -116,6 +125,7 @@ window.Entities = {
 
         this.addToScene = function(scene){
             scene.add(this.obj3D);
+            scene.add(inventory3D);
         }
 
         window.addEventListener('keydown', function(e) {
@@ -196,6 +206,14 @@ window.Entities = {
         this.obj3D = crate;
         this.collidePlayer = function(player){
             player.applyBoost(2,250);  
+            this.obj3D.visible = false;
+        }
+    },
+    RedKey: function(redkey,room){
+        this.obj3D = redkey;
+        this.collidePlayer = function(player){
+            console.log("Adding red key to inventory");
+            player.addToInventory("redkey",this);
             this.obj3D.visible = false;
         }
     }
