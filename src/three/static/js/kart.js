@@ -183,8 +183,9 @@ window.GAME = new function() {
 
     function animate() {
         c++;
-        startMS = new Date().getMilliseconds();
-        requestAnimationFrame(animate);
+        startMS = new Date();
+        startMS = startMS.getTime() + startMS.getMilliseconds();
+        requestAnimationFrame(animate);    
         camera.lookAt(cameraTarget);
         if (mode == "title") {
             //camera.position.y += (0.1 * Math.sin(c))
@@ -192,7 +193,8 @@ window.GAME = new function() {
         }
         WORLD.update(endMS == 0 ? 0 : endMS - startMS);
         renderer.render(scene, camera);
-        endMS = new Date().getMilliseconds();
+        endMS = new Date();
+        endMS = endMS.getTime() + endMS.getMilliseconds();
     }
 
     var gameMode = function() {

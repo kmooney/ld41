@@ -4,7 +4,7 @@ window.WORLD = {
             Instances.player.update(dt,Instances.dungeon);
         }
         if (Instances.dungeon) {
-            Instances.dungeon.update(dt);
+            Instances.dungeon.update(dt,Instances.player);
         }
     }
 }
