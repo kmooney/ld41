@@ -16,3 +16,25 @@
     height:30px;
     background: url(../img/heart.png);
 }
+
+#minimap table {
+    opacity: 0.7;
+    margin: 5px;
+    padding: 0px;
+}
+#minimap table tr {
+    margin: 0px;
+    padding: 0px;
+}
+#minimap table td {
+    width: 10px;
+    height: 10px;
+    margin: 0px;
+    background-color: black;
+}
+#minimap table td.visited {
+    background-color: white;
+}
+#minimap table td.current {
+    background-color: red;
+}

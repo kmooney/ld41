@@ -57,16 +57,21 @@ Dungeon.prototype.applyBounds = function(player,radius,allow_change){
 
 Dungeon.prototype.updateCurrentRoom = function(x,y){
     var k = ""+(this.current.x+x)+","+(this.current.y+y);
+
     if(this.rooms[k] != undefined){
         this.currentRoom.setVisible(false);
         this.currentRoom = this.rooms[k];
         this.currentRoom.setVisible(true);
         this.current.x += x;
         this.current.y += y;
+   
+        // notify minimap to update 
+        var e = new Event("room-change");
+        e.dungeon = this;
+        document.dispatchEvent(e); 
+
         return this.currentRoom;
     }
-    var e = new Event("room-change");
-    document.dispatchEvent(e); 
     return null;
 }
 

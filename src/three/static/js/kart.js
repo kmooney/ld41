@@ -13,7 +13,6 @@ window.GAME = new function() {
     var c = 0;
     var audioLoader = new THREE.AudioLoader();
     var camera2 = null;
-    var minimap_template = null;
 
     function setupCamera() {
         var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15);
@@ -175,7 +174,6 @@ window.GAME = new function() {
 
     function initWorld(){
         window.camera = setupCamera();
-        minimap_template = _.template(document.getElementById("minimap_template").innerText);
         setupGround();
         addLight();
         instancePlayer();
@@ -239,10 +237,6 @@ window.GAME = new function() {
         }
     });
 
-    document.addEventListener('room-change',function(e){
-        var grid = dungeon.room_hud();
-        console.log("Minimap Template",grid,minimap_template({grid:grid}));
-    });
 
     init();
 };

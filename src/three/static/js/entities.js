@@ -114,7 +114,7 @@ window.Entities = {
             inventory[key] = entity.obj3D.clone();
             // add to HUD  
             inventory[key].position = new THREE.Vector3(0,0,0);
-            inventory3D.add(inventory[key]);
+            //inventory3D.add(inventory[key]);
         }
 
         this.applyBoost = function(amount,time){

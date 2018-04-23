@@ -3,6 +3,8 @@ HUD = new (function() {
     var time = 0;
     var timeEl = null;
     var timeShown = false;
+    var minimap_template = null;
+
     function showTitle() {
         var e = document.createElement('img');
         e.src="static/img/title.png";
@@ -25,6 +27,7 @@ HUD = new (function() {
         hideMessages();
         showHealth();
         showTime();
+        showMinimap();
         window.removeEventListener('keypress', l);
     }
 
@@ -51,6 +54,19 @@ HUD = new (function() {
         var health = document.createElement('div');
         health.id = "health";
         hud.appendChild(health);
+    }
+
+    function showMinimap(){
+        minimap_template = _.template(document.getElementById("minimap_template").innerText);
+        var mapEl = document.createElement('div');
+        mapEl.id = "minimap";
+        hud.appendChild(mapEl);
+        document.addEventListener('room-change',function(e){
+            var grid = e.dungeon.room_hud();
+            console.log("updating minimap",grid);
+            mapEl.innerHTML = minimap_template({grid:grid,curx:e.dungeon.current.x,cury:e.dungeon.cury});
+            //console.log("Minimap Template",grid,minimap_template({grid:grid}));
+        });
     }
 
     function update(dt) {}
