@@ -6,5 +6,8 @@ window.WORLD = {
         if (Instances.dungeon) {
             Instances.dungeon.update(dt,Instances.player);
         }
+        if (HUD) {
+            HUD.update(dt);
+        }
     }
 }

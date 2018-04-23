@@ -99,7 +99,6 @@ window.Entities = {
             this.health -= amount;
             var h = document.getElementById("health");
             h.style.width = (this.health * 3.4) + "px";
-            console.log("Setting to "+this.health * 3.4+"px");
             if(this.health <= 0){
                 alert("You Died");
                 // TODO reset game?
@@ -177,7 +176,7 @@ window.Entities = {
             ring.rotation.x = Math.PI/2;
             this.obj3D.add( ring ); 
         }
-        this.add_debug_ring();
+        //this.add_debug_ring();
 
 
     },
@@ -188,6 +187,7 @@ window.Entities = {
 
         this.update = function(dt, player, dungeon) {            
             if(!this.obj3D.visible){ return; }
+            this.obj3D.up = new THREE.Vector3(0,1,0);
             this.obj3D.lookAt(player.obj3D.position); 
             var v = player.obj3D.position.clone();
             v.sub(this.obj3D.position);
@@ -198,7 +198,6 @@ window.Entities = {
         this.collidePlayer = function(player){
             player.applyDamage(10);
             player.applyBoost(0.5,250);  
-            console.log("Damage From Mob!");
             this.obj3D.visible = false; 
         }
     },
@@ -212,7 +211,6 @@ window.Entities = {
     RedKey: function(redkey,room){
         this.obj3D = redkey;
         this.collidePlayer = function(player){
-            console.log("Adding red key to inventory");
             player.addToInventory("redkey",this);
             this.obj3D.visible = false;
         }

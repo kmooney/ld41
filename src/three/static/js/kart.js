@@ -106,7 +106,6 @@ window.GAME = new function() {
             var package = collada.scene;
             collada.scene.scale.set(0.1, 0.1, 0.1);
             collada.scene.rotation.z = -Math.PI/4;
-            console.log(collada);
             for(var i=0;i<collada.scene.children.length; i++){
                 var obj = collada.scene.children[i];
                 obj.rotation.x = -Math.PI/2;

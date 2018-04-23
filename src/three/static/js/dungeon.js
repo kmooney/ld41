@@ -38,7 +38,6 @@ Dungeon.prototype.applyBounds = function(player,radius,allow_change){
 Dungeon.prototype.updateCurrentRoom = function(x,y){
     var k = ""+(this.current.x+x)+","+(this.current.y+y);
     if(this.rooms[k] != undefined){
-        console.log("changing to room "+k);
         this.currentRoom.setVisible(false);
         this.currentRoom = this.rooms[k];
         this.currentRoom.setVisible(true);
@@ -142,7 +141,6 @@ Room.prototype.update = function(dt,player,dungeon){
 Room.prototype.loadObjects = function(obj_list,objectLibrary){
     this.addWalls(objectLibrary);
     for(var i=0; i<obj_list.length; i++){
-        console.log("would load a "+obj_list[i].type+" to "+obj_list[i].pos);
         var o = obj_list[i];
         var instance = objectLibrary[o.type].clone();
         instance.position.x = o.x;
@@ -154,7 +152,6 @@ Room.prototype.loadObjects = function(obj_list,objectLibrary){
         this.obj3d.children.push(instance); 
         this.items.push(instance);
     } 
-    console.log(this.items);
 }
 
 Room.prototype.collide = function(player, r){
