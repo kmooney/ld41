@@ -7,6 +7,26 @@ var Dungeon = function(){
     this.bounds = BOUNDS;
 }
 
+Dungeon.prototype.room_hud = function(){
+    var rooms = _.values(this.rooms); 
+    var mx = {max:_.maxBy(rooms,"x").x,min:_.minBy(rooms,"x").x};
+    var my = {max:_.maxBy(rooms,"y").y,min:_.minBy(rooms,"y").y};
+    // gen xy grid of map
+    var grid = [];
+    for(var y=my.min; y<=my.max; y++){
+        var row = [];
+        grid.push(row);
+        for(var x=mx.min;x<=mx.max;x++){
+            var k = ""+x+","+y;
+            if(this.rooms[k] != undefined){
+                var room = this.rooms[k];
+                row.push(room);
+            }else{ row.push(null); }
+        }
+    }
+    return grid;
+}
+
 Dungeon.prototype.update = function(dt,player){
     if(this.currentRoom != null){
         this.currentRoom.update(dt,player,this);
@@ -45,6 +65,8 @@ Dungeon.prototype.updateCurrentRoom = function(x,y){
         this.current.y += y;
         return this.currentRoom;
     }
+    var e = new Event("room-change");
+    document.dispatchEvent(e); 
     return null;
 }
 
@@ -86,6 +108,7 @@ Dungeon.prototype.collide = function(p, r) {
 var Room = function(walls,x,y){
     this.x = x;
     this.y = y;
+    this.visited = false;
     this.walls = walls; 
     this.obj3d = new THREE.Object3D();
     this.obj3d.visible = false; 
@@ -127,6 +150,7 @@ Room.prototype.addToScene = function(scene){
 
 Room.prototype.setVisible = function(visible){
     this.obj3d.visible = visible;
+    this.visited = true;
 }
 
 Room.prototype.update = function(dt,player,dungeon){

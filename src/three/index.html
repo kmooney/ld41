@@ -21,5 +21,19 @@
         <script src="static/js/dungeon_map.js"></script>
         <script src="static/js/kart.js"></script>
         <script src="static/js/hud.js"></script>
+        <script id="minimap_template" type="application/template">
+            <table id="minmap"> 
+                <% for(var y=0;y<grid.length;y++){ %>
+                <tr>
+                    <% for(var x=0;x<grid[y].length;x++){ %>
+                    <% if(grid[y][x] != null && grid[y][x].visited) { %>
+                    <td class="visited"></td>
+                    <% }else{ %>
+                    <td></td>
+                    <% } } %>
+                </tr>
+                <% } %>
+            </table>
+        </script>
     </body>
 </html>
