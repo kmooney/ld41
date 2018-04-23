@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9</authoring_tool>
     </contributor>
-    <created>2018-04-22T23:12:01</created>
-    <modified>2018-04-22T23:12:01</modified>
+    <created>2018-04-23T00:38:35</created>
+    <modified>2018-04-23T00:38:35</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -35,10 +35,10 @@
     <light id="Spot_001-light" name="Spot.001">
       <technique_common>
         <spot>
-          <color sid="color">3.109713 3.14 0</color>
+          <color sid="color">9.903545 10 0</color>
           <constant_attenuation>1</constant_attenuation>
           <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0.00444442</quadratic_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
           <falloff_angle sid="fall_off_angle">39.3</falloff_angle>
           <falloff_exponent sid="fall_off_exponent">0.71</falloff_exponent>
         </spot>
@@ -55,8 +55,8 @@
           <shadow_r sid="blender_shadow_r" type="float">0</shadow_r>
           <shadow_g sid="blender_shadow_g" type="float">0</shadow_g>
           <shadow_b sid="blender_shadow_b" type="float">0</shadow_b>
-          <energy sid="blender_energy" type="float">3.14</energy>
-          <dist sid="blender_dist" type="float">15</dist>
+          <energy sid="blender_energy" type="float">10</energy>
+          <dist sid="blender_dist" type="float">30</dist>
           <spotsize sid="spotsize" type="float">39.3</spotsize>
           <spotblend sid="spotblend" type="float">0.71</spotblend>
           <halo_intensity sid="blnder_halo_intensity" type="float">1</halo_intensity>
@@ -105,10 +105,10 @@
     <light id="Spot-light" name="Spot">
       <technique_common>
         <spot>
-          <color sid="color">3.109713 3.14 0</color>
+          <color sid="color">9.903545 10 0</color>
           <constant_attenuation>1</constant_attenuation>
           <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0.00444442</quadratic_attenuation>
+          <quadratic_attenuation>0.00111109</quadratic_attenuation>
           <falloff_angle sid="fall_off_angle">39.3</falloff_angle>
           <falloff_exponent sid="fall_off_exponent">0.71</falloff_exponent>
         </spot>
@@ -125,8 +125,8 @@
           <shadow_r sid="blender_shadow_r" type="float">0</shadow_r>
           <shadow_g sid="blender_shadow_g" type="float">0</shadow_g>
           <shadow_b sid="blender_shadow_b" type="float">0</shadow_b>
-          <energy sid="blender_energy" type="float">3.14</energy>
-          <dist sid="blender_dist" type="float">15</dist>
+          <energy sid="blender_energy" type="float">10</energy>
+          <dist sid="blender_dist" type="float">30</dist>
           <spotsize sid="spotsize" type="float">39.3</spotsize>
           <spotblend sid="spotblend" type="float">0.71</spotblend>
           <halo_intensity sid="blnder_halo_intensity" type="float">1</halo_intensity>

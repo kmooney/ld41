@@ -43,16 +43,21 @@ window.Entities = {
         })
 
         this.update = function(dt, dungeon) {
-            if(left && velocity.length() > 0.01){
+            
+            if(left && ((gas && brake) || velocity.length() > 0.01)){
                 direction += turnAngle;
                 velocity.applyAxisAngle(UP, turnAngle);
             }
-            if(right && velocity.length() > 0.01){
+            if(right && ((gas && brake) || velocity.length() > 0.01)){
                 direction -= turnAngle;
                 velocity.applyAxisAngle(UP, -turnAngle);                
             }
             if(gas) {
                 var t = new THREE.Vector3(0,0,0.01);
+                if (left || right) {
+                    var z = new THREE.Vector3(right ? 0.015 : -0.015, 0, 0);
+                    t.add(z);
+                }
                 t.applyAxisAngle(UP, direction);   
                 velocity.add(t);
             }
