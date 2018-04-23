@@ -2,10 +2,19 @@
     <head>
         <style>
 
+table { margin:20px auto; }
 table td {
     border: 1px solid #eee;
     width: 60px;
     height: 40px;
+    cursor: pointer;
+}
+#room {
+    margin: 20px auto;
+    background-color: black;
+    width: 600px;
+    height: 400px;     
+    position: relative;
 }
 .room {
     background-color: black;
@@ -18,7 +27,10 @@ table td {
     height: 10px;
     border-radius: 5px;
 }
-
+._object:hover {
+    width: 20px;
+    height: 20px;
+}
 ._object.Crate {
     background-color: pink;
 } 
@@ -35,16 +47,36 @@ table td {
 .selected {
     background-color: blue;    
 }
-._top { border-top: solid 5px brown; }
-._left { border-left: solid 5px brown; }
-._right { border-right: solid 5px brown; }
-._bottom { border-bottom: solid 5px brown; }
+._top { border-top: solid 5px red; }
+._left { border-left: solid 5px red; }
+._right { border-right: solid 5px red; }
+._bottom { border-bottom: solid 5px red; }
 
         </style>
     </head>
 <body>
 
     <div id="map">
+    </div>
+    <h2>Current Room <span id="current"></span></h2>
+    <div>
+        <button id="create">Create</button>
+        <button id="remove">Remove</button>
+        <button id="clear">Clear Entities</button>
+        Walls: 
+        <button class="wall" data-w="l">Left</button>
+        <button class="wall" data-w="r">Right</button>
+        <button class="wall" data-w="t">Top</button>
+        <button class="wall" data-w="b">Bottom</button>
+        Entity: 
+        <select id="entity">
+            <option>Crate</option>
+            <option>Mob</option>
+            <option>RedKey</option>
+            <option>GreenKey</option>
+        </select>
+    </div> 
+    <div id="room">
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    

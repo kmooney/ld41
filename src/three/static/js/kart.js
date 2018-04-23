@@ -162,7 +162,12 @@ window.GAME = new function() {
 
     function instanceDungeon(){
         dungeon = new Dungeon();
-        dungeon.loadRooms(DUNGEON_MAP,objectLibrary,scene);
+        if(window.localStorage["Dungeon"] != undefined){
+            console.log("Loading Dev Map",window.localStorage["Dungeon"]);
+            dungeon.loadRooms(JSON.parse(window.localStorage["Dungeon"]),objectLibrary,scene);
+        }else{
+            dungeon.loadRooms(DUNGEON_MAP,objectLibrary,scene);
+        }
         Instances.dungeon = dungeon;        
         window.dungeon = dungeon; // for manual debug
     }
