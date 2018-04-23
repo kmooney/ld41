@@ -4,7 +4,7 @@ window.Entities = {
         var self = this,
             highlight = new THREE.MeshBasicMaterial({color: "#f0f000"}),
             friction = new THREE.Vector3(0,0,1),
-            turnAngle = 0.07,
+            turnAngle = 0.09,
             velocity = new THREE.Vector3(0,0,0),
             direction = 0,
             collideRadius = 0.25;
@@ -55,7 +55,7 @@ window.Entities = {
             if(gas) {
                 var t = new THREE.Vector3(0,0,0.01);
                 if (left || right) {
-                    var z = new THREE.Vector3(right ? 0.015 : -0.015, 0, 0);
+                    var z = new THREE.Vector3(right ? 0.01 : -0.01, 0, 0);
                     t.add(z);
                 }
                 t.applyAxisAngle(UP, direction);   
@@ -73,7 +73,7 @@ window.Entities = {
 
             velocity.multiplyScalar(0.95 + slide.amount);
 
-            velocity.clampLength(0,0.1);
+            velocity.clampLength(0,0.08);
    
             if(boost.t > 0){
                 velocity.multiplyScalar(boost.amount);
