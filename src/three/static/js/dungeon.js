@@ -24,7 +24,7 @@ Dungeon.prototype.room_hud = function(){
             }else{ row.push(null); }
         }
     }
-    return grid;
+    return {grid:grid,curx:this.current.x+mx.max,cury:this.current.y+my.max};
 }
 
 Dungeon.prototype.update = function(dt,player){

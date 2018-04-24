@@ -218,6 +218,15 @@ window.Entities = {
         this.collidePlayer = function(player){
             player.addToInventory("redkey",this);
             this.obj3D.visible = false;
+            document.dispatchEvent(new Event("redkey"));
+        }
+    },
+    GreenKey: function(greenkey,room){
+        this.obj3D = greenkey;
+        this.collidePlayer = function(player){
+            player.addToInventory("greenkey",this);
+            this.obj3D.visible = false;
+            document.dispatchEvent(new Event("greenkey"));
         }
     }
 }
