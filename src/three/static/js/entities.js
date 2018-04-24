@@ -106,6 +106,7 @@ window.Entities = {
             h.style.width = (this.health * 3.4) + "px";
             if(this.health <= 0){
                 alert("You Died");
+                window.location.reload();
                 // TODO reset game?
             } 
         }        
