@@ -29,6 +29,16 @@ HUD = new (function() {
         showHealth();
         showTime();
         showMinimap();
+        document.addEventListener("greenkey",function(e){
+            if( time < 60){
+                alert("You Win!");
+            }else{
+                alert("Too Late! Try to find it in under a minute!");
+                window.location.reload();
+            }   
+            
+        });
+
         window.removeEventListener('keypress', l);
     }
 
@@ -57,15 +67,20 @@ HUD = new (function() {
         hud.appendChild(health);
     }
 
+  
+    function updateMiniMap(dungeon,mapEl){
+            var grid_context = dungeon.room_hud();
+            var mapEl = document.getElementById("minimap"); 
+            mapEl.innerHTML = minimap_template(grid_context);
+    }
+ 
     function showMinimap(){
         minimap_template = _.template(document.getElementById("minimap_template").innerText);
         var mapEl = document.createElement('div');
         mapEl.id = "minimap";
         hud.appendChild(mapEl);
         document.addEventListener('room-change',function(e){
-            var grid = e.dungeon.room_hud();
-            console.log("updating minimap",grid);
-            mapEl.innerHTML = minimap_template({grid:grid,curx:e.dungeon.current.x,cury:e.dungeon.cury});
+            updateMiniMap(e.dungeon);
             //console.log("Minimap Template",grid,minimap_template({grid:grid}));
         });
     }
