@@ -1,6 +1,7 @@
 HUD = new (function() {
     var hud = document.getElementById('hud');
-    var time = 0;
+    this.time = 0;
+    var self = this;
     var timeEl = null;
     var timeShown = false;
     var minimap_template = null;
@@ -42,10 +43,10 @@ HUD = new (function() {
         hud.appendChild(timeEl);
         timeShown = true;
         window.setInterval(function() {
-            time += 99;
-            minutes = Math.floor(time / 60000);
-            seconds = Math.floor((time % 60000) / 1000);
-            millis = time % 6000 % 1000;
+            self.time += 99;
+            minutes = Math.floor(self.time / 60000);
+            seconds = Math.floor((self.time % 60000) / 1000);
+            millis = self.time % 6000 % 1000;
             timeEl.innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + ":" + millis;
         }, 99);
     }
@@ -70,7 +71,6 @@ HUD = new (function() {
     }
 
     function update(dt) {}
-
 
 
 
