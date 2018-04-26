@@ -84,6 +84,7 @@ HUD = new (function() {
             updateMiniMap(e.dungeon);
             //console.log("Minimap Template",grid,minimap_template({grid:grid}));
         });
+        updateMiniMap(Instances.dungeon);
     }
 
     function update(dt) {}
