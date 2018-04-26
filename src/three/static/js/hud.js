@@ -30,8 +30,8 @@ HUD = new (function() {
         showTime();
         showMinimap();
         document.addEventListener("greenkey",function(e){
-            if( time < 60){
-                alert("You Win!");
+            if( self.time < 1000 * 60 * 60){
+                alert("You Won!");
             }else{
                 alert("Too Late! Try to find it in under a minute!");
                 window.location.reload();
@@ -57,7 +57,7 @@ HUD = new (function() {
             minutes = Math.floor(self.time / 60000);
             seconds = Math.floor((self.time % 60000) / 1000);
             millis = self.time % 6000 % 1000;
-            timeEl.innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + ":" + millis;
+            timeEl.innerText = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds + "." + millis;
         }, 99);
     }
 
