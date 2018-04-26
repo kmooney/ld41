@@ -23,7 +23,7 @@ HUD = new (function() {
         document.getElementById('message').remove();
     }
 
-    var l = function(e) {
+    var startGame = function(e) {
         GAME.gameMode();
         hideMessages();
         showHealth();
@@ -32,17 +32,18 @@ HUD = new (function() {
         document.addEventListener("greenkey",function(e){
             if( self.time < 1000 * 60 * 60){
                 alert("You Won!");
-            }else{
+                window.location.reload();
+            } else {
                 alert("Too Late! Try to find it in under a minute!");
                 window.location.reload();
             }   
             
         });
 
-        window.removeEventListener('keypress', l);
+        window.removeEventListener('keypress', startGame);
     }
 
-    window.addEventListener('keypress', l);
+    window.addEventListener('keypress', startGame);
 
     showTitle();
     showMessages();
