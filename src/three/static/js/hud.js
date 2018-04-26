@@ -69,20 +69,20 @@ HUD = new (function() {
     }
 
   
-    function updateMiniMap(dungeon,mapEl){
+    function updateMiniMap(dungeon,mapEl) {
             var grid_context = dungeon.room_hud();
             var mapEl = document.getElementById("minimap"); 
             mapEl.innerHTML = minimap_template(grid_context);
+            console.log(grid_context.grid);
     }
  
-    function showMinimap(){
+    function showMinimap() {
         minimap_template = _.template(document.getElementById("minimap_template").innerText);
         var mapEl = document.createElement('div');
         mapEl.id = "minimap";
         hud.appendChild(mapEl);
         document.addEventListener('room-change',function(e){
             updateMiniMap(e.dungeon);
-            //console.log("Minimap Template",grid,minimap_template({grid:grid}));
         });
         updateMiniMap(Instances.dungeon);
     }
