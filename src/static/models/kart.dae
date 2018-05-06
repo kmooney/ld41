@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.79.0 commit date:2018-03-22, commit time:14:10, hash:f4dc9f9</authoring_tool>
     </contributor>
-    <created>2018-04-23T00:38:35</created>
-    <modified>2018-04-23T00:38:35</modified>
+    <created>2018-04-26T03:40:46</created>
+    <modified>2018-04-26T03:40:46</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -35,30 +35,30 @@
     <light id="Spot_001-light" name="Spot.001">
       <technique_common>
         <spot>
-          <color sid="color">9.903545 10 0</color>
+          <color sid="color">8 7.928818 4.416092</color>
           <constant_attenuation>1</constant_attenuation>
           <linear_attenuation>0</linear_attenuation>
           <quadratic_attenuation>0.00111109</quadratic_attenuation>
-          <falloff_angle sid="fall_off_angle">39.3</falloff_angle>
-          <falloff_exponent sid="fall_off_exponent">0.71</falloff_exponent>
+          <falloff_angle sid="fall_off_angle">10</falloff_angle>
+          <falloff_exponent sid="fall_off_exponent">0.47</falloff_exponent>
         </spot>
       </technique_common>
       <extra>
         <technique profile="blender">
           <type sid="type" type="int">2</type>
           <flag sid="flag" type="int">0</flag>
-          <mode sid="mode" type="int">131073</mode>
+          <mode sid="mode" type="int">131075</mode>
           <gamma sid="blender_gamma" type="float">1</gamma>
-          <red sid="red" type="float">0.9903545</red>
-          <green sid="green" type="float">1</green>
-          <blue sid="blue" type="float">0</blue>
+          <red sid="red" type="float">1</red>
+          <green sid="green" type="float">0.9911022</green>
+          <blue sid="blue" type="float">0.5520115</blue>
           <shadow_r sid="blender_shadow_r" type="float">0</shadow_r>
           <shadow_g sid="blender_shadow_g" type="float">0</shadow_g>
           <shadow_b sid="blender_shadow_b" type="float">0</shadow_b>
-          <energy sid="blender_energy" type="float">10</energy>
+          <energy sid="blender_energy" type="float">8</energy>
           <dist sid="blender_dist" type="float">30</dist>
-          <spotsize sid="spotsize" type="float">39.3</spotsize>
-          <spotblend sid="spotblend" type="float">0.71</spotblend>
+          <spotsize sid="spotsize" type="float">10</spotsize>
+          <spotblend sid="spotblend" type="float">0.47</spotblend>
           <halo_intensity sid="blnder_halo_intensity" type="float">1</halo_intensity>
           <att1 sid="att1" type="float">0</att1>
           <att2 sid="att2" type="float">1</att2>
@@ -105,30 +105,30 @@
     <light id="Spot-light" name="Spot">
       <technique_common>
         <spot>
-          <color sid="color">9.903545 10 0</color>
+          <color sid="color">8 7.931988 4.392123</color>
           <constant_attenuation>1</constant_attenuation>
           <linear_attenuation>0</linear_attenuation>
           <quadratic_attenuation>0.00111109</quadratic_attenuation>
-          <falloff_angle sid="fall_off_angle">39.3</falloff_angle>
-          <falloff_exponent sid="fall_off_exponent">0.71</falloff_exponent>
+          <falloff_angle sid="fall_off_angle">10</falloff_angle>
+          <falloff_exponent sid="fall_off_exponent">0.47</falloff_exponent>
         </spot>
       </technique_common>
       <extra>
         <technique profile="blender">
           <type sid="type" type="int">2</type>
           <flag sid="flag" type="int">0</flag>
-          <mode sid="mode" type="int">131073</mode>
+          <mode sid="mode" type="int">131075</mode>
           <gamma sid="blender_gamma" type="float">1</gamma>
-          <red sid="red" type="float">0.9903545</red>
-          <green sid="green" type="float">1</green>
-          <blue sid="blue" type="float">0</blue>
+          <red sid="red" type="float">1</red>
+          <green sid="green" type="float">0.9914985</green>
+          <blue sid="blue" type="float">0.5490154</blue>
           <shadow_r sid="blender_shadow_r" type="float">0</shadow_r>
           <shadow_g sid="blender_shadow_g" type="float">0</shadow_g>
           <shadow_b sid="blender_shadow_b" type="float">0</shadow_b>
-          <energy sid="blender_energy" type="float">10</energy>
+          <energy sid="blender_energy" type="float">8</energy>
           <dist sid="blender_dist" type="float">30</dist>
-          <spotsize sid="spotsize" type="float">39.3</spotsize>
-          <spotblend sid="spotblend" type="float">0.71</spotblend>
+          <spotsize sid="spotsize" type="float">10</spotsize>
+          <spotblend sid="spotblend" type="float">0.47</spotblend>
           <halo_intensity sid="blnder_halo_intensity" type="float">1</halo_intensity>
           <att1 sid="att1" type="float">0</att1>
           <att2 sid="att2" type="float">1</att2>

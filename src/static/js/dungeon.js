@@ -60,7 +60,7 @@ Dungeon.prototype.applyBounds = function(player,radius,allow_change){
 }
 
 Dungeon.prototype.updateCurrentRoom = function(x,y){
-    var k = ""+(this.current.x+x)+","+(this.current.y+(y));
+    var k = ""+(this.current.x+x)+","+(this.current.y+y);
 
     if(this.rooms[k] != undefined){
         this.currentRoom.setVisible(false);
@@ -76,6 +76,7 @@ Dungeon.prototype.updateCurrentRoom = function(x,y){
 
         return this.currentRoom;
     }
+
     return null;
 }
 
@@ -106,7 +107,7 @@ Dungeon.prototype.loadRooms = function(roomList,objectLibrary,scene){
         }
         room.addToScene(scene);
     }   
-    //this.updateCurrentRoom(0,0);
+    this.updateCurrentRoom(0,0);
 }
 
 Dungeon.prototype.collide = function(p, r) {

@@ -27,9 +27,9 @@
                 <tr>
                     <% for(var x=0;x<grid[y].length;x++){ %>
                     <% if(x == curx && y == cury){ %>
-                    <td data-x="<%= x %>" data-y="<%= y %>" class="current"></td>
+                        <td data-x="<%= x %>" data-y="<%= y %>" class="current"></td>
                     <% }else if(grid[y][x] != null && grid[y][x].visited == true) { %>
-                    <td data-x="<%= x %>" data-y="<%= y %>"  class="visited"></td>
+                        <td data-x="<%= x %>" data-y="<%= y %>"  class="visited"></td>
                     <% }else{ %>
                     <td data-x="<%= x %>" data-y="<%= y %>" ></td>
                     <% } } %>
